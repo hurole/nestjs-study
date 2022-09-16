@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   HttpCode,
+  Logger,
   Param,
   Patch,
   Post,
@@ -22,6 +23,7 @@ export class EventController {
   ) {}
   @Get()
   async findAll() {
+    Logger.debug('findAll');
     return await this.repository.find();
   }
   @Get(':id')

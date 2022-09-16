@@ -2,24 +2,26 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { EventController } from './event.controller';
-import { Event } from './event.entity';
+import { Event } from './event/event.entity';
+import { EventModule } from './event/event.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: '47.105.134.91',
-      port: 3306,
-      username: 'root',
-      password: 'root123456',
-      database: 'test',
+      host: process.env.DB_HOST,
+      port: Number(process.env.DB_PORT),
+      username: process.env.DB_USER,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_NAME,
       synchronize: true,
       entities: [Event],
     }),
-    TypeOrmModule.forFeature([Event]),
+    EventModule,
   ],
-  controllers: [AppController, EventController],
+  controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {}
