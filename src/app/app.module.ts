@@ -11,10 +11,8 @@ import { AuthModule } from 'src/auth/auth.module';
 
 @Module({
   imports: [
-    // 此处通过envFilePath加载指定的配置文件，并将该文件添加到git忽略名单中，避免将数据库信息上传到代码仓库
-    ConfigModule.forRoot({
-      envFilePath: '.env.local',
-    }),
+    // 此处可以通过envFilePath加载指定的配置文件，并将该文件添加到git忽略名单中，避免将数据库信息上传到代码仓库
+    ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: process.env.DB_HOST,
