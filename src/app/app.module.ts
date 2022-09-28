@@ -2,8 +2,6 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { Event } from '../event/event.entity';
-import { EventModule } from '../event/event.module';
 import { ConfigModule } from '@nestjs/config';
 import { Article } from 'src/articles/entities/article.entity';
 import { ArticlesModule } from 'src/articles/articles.module';
@@ -24,9 +22,8 @@ import { User } from 'src/users/entities/user.entity';
       // 时区选择 UTC
       timezone: 'Z',
       synchronize: true,
-      entities: [Event, Article, User],
+      entities: [Article, User],
     }),
-    EventModule,
     ArticlesModule,
     AuthModule,
   ],

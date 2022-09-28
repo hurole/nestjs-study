@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { User } from 'src/users/entities/user.entity';
 import { Repository } from 'typeorm';
-import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
 import { Article } from './entities/article.entity';
 
@@ -9,11 +9,17 @@ import { Article } from './entities/article.entity';
 export class ArticlesService {
   constructor(
     @InjectRepository(Article) private readonly repository: Repository<Article>,
+    @InjectRepository(User) private readonly userRepository: Repository<User>,
   ) {}
-  async create(createArticleDto: CreateArticleDto) {
-    return await this.repository.save({
-      ...createArticleDto,
+  async create(article) {
+    const user = await this.userRepository.findOne({
+      where: { uid: article.uid },
     });
+    const item = new Article();
+    item.title = article.title;
+    item.content = article.content;
+    item.author = user;
+    return await this.repository.save(item);
   }
 
   async findAll() {

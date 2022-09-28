@@ -1,7 +1,10 @@
+import { Article } from 'src/articles/entities/article.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -25,4 +28,6 @@ export class User {
   mobile: string;
   @CreateDateColumn()
   registerTime: Date;
+  @OneToMany(() => Article, (article) => article.author)
+  articles: Article[];
 }

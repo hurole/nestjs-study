@@ -1,7 +1,10 @@
+import { User } from 'src/users/entities/user.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -20,8 +23,9 @@ export class Article {
   createTime: Date;
   @UpdateDateColumn({ name: 'update_time' })
   updateTime: Date;
-  @Column({ type: 'varchar', length: 16, comment: '作者' })
-  author: string;
+  @ManyToOne(() => User, (user) => user.articles)
+  @JoinColumn({ name: 'user_uid' })
+  author: User;
   @Column({ type: 'text', comment: '文章内容' })
   content: string;
 }
