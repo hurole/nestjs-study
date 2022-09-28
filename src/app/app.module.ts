@@ -8,6 +8,7 @@ import { ConfigModule } from '@nestjs/config';
 import { Article } from 'src/articles/entities/article.entity';
 import { ArticlesModule } from 'src/articles/articles.module';
 import { AuthModule } from 'src/auth/auth.module';
+import { User } from 'src/users/entities/user.entity';
 
 @Module({
   imports: [
@@ -23,7 +24,7 @@ import { AuthModule } from 'src/auth/auth.module';
       // 时区选择 UTC
       timezone: 'Z',
       synchronize: true,
-      entities: [Event, Article],
+      entities: [Event, Article, User],
     }),
     EventModule,
     ArticlesModule,
