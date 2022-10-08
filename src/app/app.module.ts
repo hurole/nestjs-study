@@ -7,6 +7,8 @@ import { Article } from 'src/articles/entities/article.entity';
 import { ArticlesModule } from 'src/articles/articles.module';
 import { AuthModule } from 'src/auth/auth.module';
 import { User } from 'src/users/entities/user.entity';
+import { Tag } from 'src/tags/entities/tag.entity';
+import { TagsModule } from 'src/tags/tags.module';
 
 @Module({
   imports: [
@@ -22,10 +24,11 @@ import { User } from 'src/users/entities/user.entity';
       // 时区选择 UTC
       timezone: 'Z',
       synchronize: true,
-      entities: [Article, User],
+      entities: [Article, User, Tag],
     }),
     ArticlesModule,
     AuthModule,
+    TagsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

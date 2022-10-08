@@ -1,9 +1,12 @@
+import { Tag } from 'src/tags/entities/tag.entity';
 import { User } from 'src/users/entities/user.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
   JoinColumn,
+  JoinTable,
+  ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -28,4 +31,7 @@ export class Article {
   author: User;
   @Column({ type: 'text', comment: '文章内容' })
   content: string;
+  @ManyToMany(() => Tag)
+  @JoinTable()
+  tags: Tag[];
 }
